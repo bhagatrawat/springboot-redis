@@ -35,18 +35,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonRepositoryTest {
 
     /**
-     * We need to have a Redis server instance available. <br />
-     * 1) Start/Stop an embedded instance or reuse an already running local installation <br />
-     * 2) Ignore tests if startup failed and no server running locally.
+     * Create Redis server instance
      */
     public static @ClassRule
     RuleChain rules = RuleChain
             .outerRule(EmbeddedRedisServer.runningAt(6379).suppressExceptions())
             .around(RequiresRedisServer.onLocalhost());
 
-    /**
-     * {@link Charset} for String conversion
-     **/
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
     @Autowired
@@ -54,9 +49,6 @@ public class PersonRepositoryTest {
     @Autowired
     PersonRepository repository;
 
-    /*
-     * Set of test users
-     */
     Person eddard = new Person("eddard", "stark", Gender.MALE);
     Person robb = new Person("robb", "stark", Gender.MALE);
     Person sansa = new Person("sansa", "stark", Gender.FEMALE);
